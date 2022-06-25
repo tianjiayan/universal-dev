@@ -9,13 +9,15 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "core-js": "^3.6.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "file:12.1.4@commitlint/cli@12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "@vue/cli-plugin-babel": "~4.5.13",
     "@vue/cli-plugin-eslint": "~4.5.13",
     "@vue/cli-plugin-router": "~4.5.13",
