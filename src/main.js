@@ -8,6 +8,7 @@ import store from './store'
 import './styles/index.scss'
 import './iconfont/iconfont.css'
 import installIcons from './icons/index.js'
+import '@/icons'
 
 const app = createApp(App)
 installIcons(app)

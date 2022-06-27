@@ -42,12 +42,17 @@
 </template>
 
 <script setup>
+import UserApi from '../../api/user'
 import { reactive, ref, computed } from 'vue'
 import { validatePassword } from './rule'
+import md5 from 'md5'
+
 const inputType = ref('password')
+const LoginForm = ref()
+
 const loginForm = reactive({
-  username: 'admin',
-  password: '123456'
+  username: '',
+  password: ''
 })
 const loginRules = reactive({
   username: [
@@ -68,14 +73,21 @@ const loginRules = reactive({
 const passwordIconStatus = computed(() => {
   return inputType.value === 'password' ? 'eye' : 'eye-open'
 })
-const handleLoginSubmit = async (formName) => {
-  if (!formName) return
-  await formName.validate((valid) => {
+
+// 登录方式
+
+const handleLoginSubmit = async () => {
+  if (!LoginForm.value) return
+  await LoginForm.value.validate(async (valid) => {
     if (valid) {
       alert('登录')
+      loginForm.password = md5(loginForm.password)
+      const response = await UserApi.login(loginForm)
+      console.log(response, '登录')
     }
   })
 }
+
 const handllePassWordStatus = () => {
   inputType.value = inputType.value === 'password' ? 'text' : 'password'
 }
