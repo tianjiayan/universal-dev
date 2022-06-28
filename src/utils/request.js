@@ -50,7 +50,7 @@ const request = (options) => {
   if (options.method.toLowerCase() == 'get') {
     options.params = options.data || {}
   }
-  service(options)
+  return service(options)
 }
 
 // 获取icode、
