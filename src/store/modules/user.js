@@ -1,27 +1,45 @@
 import UserApi from '../../api/user'
-// import md5 from 'md5'
-// import { setItem, getItem } from '../../utils/storage.js'
-// import { TOKEN } from '../cosntant'
+import { setItem, getItem, removeItem } from '../../utils/storage'
+import { resetRouter } from '../../utils/removeRouter'
 export default {
   namespaced: true,
   state: () => ({
-    token :localStorage.getItem('token') || ''
+    token: getItem('token') || '',
+    userInfo: {}
   }),
   mutations: {
     setToken(state, token) {
       state.token = token
-      localStorage.setItem('token',token)
-      // setItem('token',token)
+      setItem('token', token)
+    },
+    setUserInfo(state, userInfo) {
+      state.userInfo = userInfo
     }
   },
   actions: {
     async login({ commit }, payload) {
-      const response = await UserApi.login(payload)
-      console.log(response)
-      if(response){
-        commit("setToken",response.data.data.token)
+      try {
+        const response = await UserApi.login(payload)
+        commit('setToken', response.token)
+        return response
+      } catch (err) {
+        console.log(err)
       }
-      return response
+    },
+    async getUserInfo({ commit }) {
+      try {
+        const response = await UserApi.getUserInfo()
+        commit('setUserInfo', response)
+        return response
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    logout({ commit }) {
+      resetRouter(), commit('setToken', '')
+      commit('setUserInfo', {})
+      removeItem('token')
+      removeItem('userInfo')
     }
   }
 }

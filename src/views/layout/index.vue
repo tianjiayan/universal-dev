@@ -1,48 +1,60 @@
 <template>
-  <div class="common-layout">
-    <el-container>
-      <el-aside width="200px">Aside</el-aside>
-      <el-container>
-        <el-header>Header</el-header>
-        <el-main>Main</el-main>
-      </el-container>
-    </el-container>
+  <div class="app-wrapper">
+    <sidebar class="sidebar-container"></sidebar>
+    <div class="main-container">
+      <div class="fiexed-header">
+        <navbar></navbar>
+        <tags-view></tags-view>
+      </div>
+      <app-main></app-main>
+    </div>
   </div>
 </template>
 
-<script>
-export default {}
+<script setup>
+import Sidebar from './Sidebar'
+import Navbar from './Navbar'
+import AppMain from './AppMain'
+import TagsView from '../../components/TagsView'
 </script>
 
 <style lang="scss" scoped>
-.common-layout {
+.app-wrapper {
+  position: relative;
+  width: 100%;
   height: 100%;
+
+  .sidebar-container {
+    width: 210px;
+    height: 100%;
+    background-color: #304156;
+    overflow-y: auto;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    -ms-overflow-style: none; /* IE 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .main-container {
+    width: calc(100% - 210px);
+    height: 100%;
+    margin-left: 210px;
+    position: relative;
+
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 9;
+      width: calc(100% - 210px);
+    }
+  }
 }
 
-.el-header,
-.el-footer {
-  background-color: #b3c0d1;
-  color: #333;
-  //   text-align: center;
-  //   line-height: 60px;
-}
-
-.el-aside {
-  background-color: #d3dce6;
-  color: #333;
-  //   text-align: center;
-  //   line-height: 200px;
-}
-
-.el-main {
-  background-color: #e9eef3;
-  color: #333;
-  //   text-align: center;
-  //   line-height: 160px;
-}
-
-.el-container {
-//   margin-bottom: 40px;
-  height: 100%;
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
 }
 </style>
+
