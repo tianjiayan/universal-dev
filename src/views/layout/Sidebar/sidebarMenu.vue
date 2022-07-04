@@ -110,4 +110,7 @@ const menuList = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+.el-menu{
+  border-right: 0;
+}
 </style>
